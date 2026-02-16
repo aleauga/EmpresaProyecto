@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+	<PreserveCompilationContext>true</PreserveCompilationContext>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EmpresaProyecto.Core\EmpresaProyecto.Core.csproj" />
+    <ProjectReference Include="..\EmpresaProyecto.Infrastructure\EmpresaProyecto.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

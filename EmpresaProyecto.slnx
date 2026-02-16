@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="EmpresaProyecto.API.Susbcriptions/EmpresaProyecto.API.Subscriptions.csproj" />
+  <Project Path="EmpresaProyecto.Apigateway/Apigateway.csproj" />
+  <Project Path="EmpresaProyecto.Core/EmpresaProyecto.Core.csproj" />
+  <Project Path="EmpresaProyecto.Infrastructure/EmpresaProyecto.Infrastructure.csproj" />
+  <Project Path="EmpresaProyecto.Tests/EmpresaProyecto.Tests.csproj" Id="e38860dd-b76e-4e3b-9804-43ff18b9b56b" />
+  <Project Path="EmpresaProyecto.WorkerService/EmpresaProyecto.WorkerService.csproj" />
+</Solution>

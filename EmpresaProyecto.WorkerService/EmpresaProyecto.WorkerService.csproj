@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+	  <PreserveCompilationContext>true</PreserveCompilationContext>
+	  <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-EmpresaProyecto.WorkerService-b454a184-fe06-426e-a84a-822b65b7ceb8</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.3" />
+    <PackageReference Include="Polly" Version="8.6.5" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EmpresaProyecto.Core\EmpresaProyecto.Core.csproj" />
+    <ProjectReference Include="..\EmpresaProyecto.Infrastructure\EmpresaProyecto.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

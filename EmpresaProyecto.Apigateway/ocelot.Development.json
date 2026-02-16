@@ -1,0 +1,22 @@
+{
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5000"
+  },
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/client/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5152
+        }
+
+      ],
+      "UpstreamPathTemplate": "/client/{everything}",
+      "UpstreamHttpMethod": [
+        "POST","GET"
+      ]
+    }
+  ]
+}

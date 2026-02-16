@@ -1,0 +1,110 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=YourStrong!Passw0rd
+      - MYSQL_DATABASE=EmpresaProyecto
+      - MYSQL_USER=devuser
+      - MYSQL_PASSWORD=devpass
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./sql/scripts:/docker-entrypoint-initdb.d
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-pYourStrong!Passw0rd",
+        ]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+      start_period: 10s
+
+  httpbin:
+    image: kennethreitz/httpbin
+    ports:
+      - "8080:80"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+      start_period: 10s
+
+  apigateway:
+    build:
+      context: .
+      dockerfile: EmpresaProyecto.Apigateway/Dockerfile
+    depends_on:
+      - api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5000
+    ports:
+      - "5000:5000"
+
+  api:
+    build:
+      context: .
+      dockerfile: EmpresaProyecto.API.Susbcriptions/Dockerfile
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      mysql:
+        condition: service_healthy
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5151
+      - RabbitMQ__HostName=rabbitmq
+      - ConnectionStrings__DefaultConnection=Server=mysql;Port=3306;Database=EmpresaProyecto;Uid=devuser;Pwd=devpass;
+    ports:
+      - "5151:5151"
+
+  worker:
+    build:
+      context: .
+      dockerfile: EmpresaProyecto.WorkerService/Dockerfile
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      mysql:
+        condition: service_healthy
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - RabbitMQ__HostName=rabbitmq
+      - ConnectionStrings__DefaultConnection=Server=mysql;Port=3306;Database=EmpresaProyecto;Uid=devuser;Pwd=devpass;
+    ports:
+      - "5002:5002"
+
+  frontend:
+    build:
+      context: ./Frontend
+      args:
+        - REACT_APP_API_URL=http://localhost:5000
+    depends_on:
+      - api
+      - worker
+    ports:
+      - "3000:80"
+
+networks:
+  default:
+    driver: bridge
