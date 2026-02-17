@@ -253,7 +253,7 @@ dotnet run --project EmpresaProyecto.WorkerService
 - Servicios: centralizan llamadas HTTP al backend (subscriptionService).
 - Pruebas: unitarias y E2E para garantizar calidad y confiabilidad
 
-```text
+```richdisplay
 Frontend/
 ├── node_modules/              # 📦 Dependencias instaladas con npm/yarn
 ├── public/                    # 🌐 Archivos estáticos (index.html, favicon, etc.)
