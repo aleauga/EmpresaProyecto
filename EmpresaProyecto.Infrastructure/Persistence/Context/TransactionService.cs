@@ -42,7 +42,7 @@ namespace EmpresaProyecto.Infrastructure.Persistence.Context
 
         public async Task ExecuteInTransactionAsync(Func<Task> action)
         {
-            // In-memory database doesn't support transactions
+            // test
             if (_context.Database.ProviderName == "Microsoft.EntityFrameworkCore.InMemory")
             {
                 await action();

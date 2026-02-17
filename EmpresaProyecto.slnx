@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="README.md" />
+  </Folder>
   <Project Path="EmpresaProyecto.API.Susbcriptions/EmpresaProyecto.API.Subscriptions.csproj" />
   <Project Path="EmpresaProyecto.Apigateway/Apigateway.csproj" />
   <Project Path="EmpresaProyecto.Core/EmpresaProyecto.Core.csproj" />

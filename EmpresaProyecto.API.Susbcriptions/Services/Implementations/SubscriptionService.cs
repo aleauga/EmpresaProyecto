@@ -8,7 +8,6 @@ using EmpresaProyecto.Core.Messaging.Events;
 using EmpresaProyecto.Core.Repository.Contracts;
 using EmpresaProyecto.Infrastructure.Persistence.Context;
 using FluentValidation;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace EmpresaProyecto.API.Subscriptions.Services.Implementations
 {
