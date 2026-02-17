@@ -252,7 +252,8 @@ dotnet run --project EmpresaProyecto.WorkerService
 - Custom hooks: encapsulan lógica de negocio y estado (useSubscription).
 - Servicios: centralizan llamadas HTTP al backend (subscriptionService).
 - Pruebas: unitarias y E2E para garantizar calidad y confiabilidad
-```mermaid
+
+```text
 Frontend/
 ├── node_modules/              # 📦 Dependencias instaladas con npm/yarn
 ├── public/                    # 🌐 Archivos estáticos (index.html, favicon, etc.)
