@@ -68,7 +68,7 @@ namespace EmpresaProyecto.Tests.Messaging
             };
 
             // Act
-            // ⚠️ Aquí normalmente se conectaría a RabbitMQ real.
+            // Aquí normalmente se conectaría a RabbitMQ real.
             // Para test unitario, simulamos directamente el evento del consumidor.
             var channelMock = new Mock<IChannel>();
             typeof(RabbitConsumer).GetField("_channel", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
@@ -108,7 +108,7 @@ namespace EmpresaProyecto.Tests.Messaging
 
             var consumer = new RabbitConsumer(settings);
 
-            // Act & Assert
+        // Act & Assert
             await Assert.ThrowsAsync<InvalidOperationException>(async () =>
             {
                 await consumer.InitEventConsumerAsync(msg => Task.CompletedTask);

@@ -5,8 +5,6 @@
 				<Configuration>
 					<Format>cobertura</Format>
 					<ExcludeByFile>**/Program.cs</ExcludeByFile>
-					<ExcludeByFile>**/Startup.cs</ExcludeByFile>
-					<ExcludeByFile>**/GlobalUsings.cs</ExcludeByFile>
 				</Configuration>
 			</DataCollector>
 		</DataCollectors>
