@@ -233,7 +233,83 @@ dotnet run --project EmpresaProyecto.WorkerService
     ```
     📌Asegúrate de estar en el directorio raíz del proyecto para los comandos make: ..\EmpresaProyecto
 
-## 🔹 Frontend (React)
+
+## 📌 Notas:
+ Para ejecución local necesitas tener instalados:
+- .NET 8 SDK
+- Docker Desktop (para servicios de MySQL y RabbitMQ)
+- Node.js 18+
+- npm aparte.
+
+---
+---
+
+## 🚀 Frontend (React)
+
+ 🔹 Funcionalidades principales
+- Formulario de suscripción: captura datos del usuario y los envía al backend.
+- SignalR context: recibe notificaciones en tiempo real sobre el estado de la suscripción.
+- Custom hooks: encapsulan lógica de negocio y estado (useSubscription).
+- Servicios: centralizan llamadas HTTP al backend (subscriptionService).
+- Pruebas: unitarias y E2E para garantizar calidad y confiabilidad
+```mermaid
+Frontend/
+├── node_modules/              # 📦 Dependencias instaladas con npm/yarn
+├── public/                    # 🌐 Archivos estáticos (index.html, favicon, etc.)
+├── src/                       # 💻 Código fuente principal
+│   ├── components/            # 🎨 Componentes reutilizables de UI
+│   │   ├── SubscriptionForm.css   # Estilos del formulario de suscripción
+│   │   └── SubscriptionForm.tsx   # Formulario de suscripción (React + TS)
+│   ├── contexts/              # 🌍 Contextos globales (React Context API)
+│   │   └── SignalRcontext.tsx     # Contexto para manejar conexión SignalR
+│   ├── hooks/                 # 🔄 Custom hooks para lógica reutilizable
+│   │   └── useSubscription.tsx    # Hook para manejar estado de suscripción
+│   ├── services/              # 🔌 Servicios para comunicación con APIs
+│   │   └── subscriptionService.tsx # Funciones para consumir la API de suscripciones
+├── test-results/              # 🧪 Resultados de pruebas automatizadas
+└── test/                      # ✅ Archivos de pruebas (unitarias/E2E)
+```
+
+## 🔹 Explicación del flujo
+- Components
+    - SubscriptionForm.tsx + SubscriptionForm.css: UI del formulario de suscripción.
+    - Se conecta con el hook useSubscription para manejar estado y lógica.
+- Hooks
+    - useSubscription.tsx: encapsula la lógica de suscripción (ej. enviar datos, manejar estados).
+    - Llama a subscriptionService para interactuar con la API.
+- Services
+    - subscriptionService.tsx: funciones que hacen llamadas HTTP al backend.
+    - Es la capa que conecta frontend con API Gateway.
+- Contexts
+    - SignalRcontext.tsx: mantiene la conexión en tiempo real con el backend vía SignalR.
+    - Permite que componentes como SubscriptionForm reciban notificaciones de estado.
+```mermaid
+sequenceDiagram
+    participant U as Usuario
+    participant SF as SubscriptionForm (Component)
+    participant Hook as useSubscription (Hook)
+    participant Service as subscriptionService (Service)
+    participant Ctx as SignalRContext (Context)
+
+    U->>SF: Ingresa datos y envía formulario
+    SF->>Hook: Llama al hook useSubscription
+    Hook->>Service: Invoca función para enviar datos al backend
+    Service-->>Hook: Devuelve respuesta de la API
+    Hook-->>SF: Actualiza estado (ej. "Pendiente", "Activo")
+
+    Note over Ctx: Conexión en tiempo real con SignalR
+    Ctx-->>SF: Notificación de estado de suscripción
+    Ctx-->>Hook: Actualiza estado global de suscripción
+    SF->>U: Muestra feedback en UI (ej. confirmación)
+```
+---
+## 🧪 Testing
+- Unit tests: en la carpeta test/.
+- Resultados: se guardan en test-results/.
+- E2E tests: configurados con Playwright para validar flujos completos
+---
+## ⚙️ Instalación y ejecución local (sin Docker)
+
 1. Instalar dependencias:
 ```bash
 cd Frontend
@@ -243,14 +319,7 @@ npm install
 ```bash
 npm start
 ```
-## 📌 Notas:
- Para ejecución local necesitas tener instalados:
-- .NET 8 SDK
-- Docker Desktop (para servicios de MySQL y RabbitMQ)
-- Node.js 18+
-- npm aparte.
-
-
-
-
+## 🐳 Ejecución con Docker
+1. Seguir pasos de backend en la parte superior de este readme. 
+2. Abrir url http://localhost:3000/
  
